@@ -1,7 +1,7 @@
 import { differenceInSeconds } from "date-fns";
 import { createContext, ReactNode, useState, useReducer, useEffect } from "react";
 import { addNewCycleAction, interruptCurrentCycleAction, markCurrentCycleAsFinishedAction } from "../reducers/cycles/actions";
-import { Cycle, CyclesReducer } from "../reducers/cycles/reducer";
+import { Cycle, cyclesReducer } from "../reducers/cycles/reducer";
 
 interface CreateCycleData {
   task: string
@@ -23,13 +23,15 @@ interface CyclesContextProviderProps {
   children: ReactNode
 }
 
+const initialStateOfTheCycle = {
+  cycles: [],
+  activeCycleId: null
+}
+
 export const CyclesContext = createContext({} as CyclesConextType);
 
 export function CyclesContextProvider({ children }: CyclesContextProviderProps) {
-  const [cyclesState, dispatch] = useReducer(CyclesReducer, {
-    cycles: [],
-    activeCycleId: null
-  }, (() => {
+  const [cyclesState, dispatch] = useReducer(cyclesReducer, initialStateOfTheCycle, (() => {
     const storedStateAsJSON = localStorage.getItem('@ignite-timer:cycles-state:1.0.0');
 
     if (storedStateAsJSON) {
@@ -37,7 +39,6 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
     }
   }));
 
-  
   const { cycles, activeCycleId } = cyclesState;
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
 
@@ -48,6 +49,7 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
 
     return 0;
   });
+  
 
   useEffect(() => {
     const stateJSON = JSON.stringify(cyclesState);
