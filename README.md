@@ -27,7 +27,7 @@ In addition, Ignite Timer maintains a history of cycles that are in progress, st
 
 ![Captura de tela 2022-07-24 170803](https://user-images.githubusercontent.com/56702492/180665301-3e134122-1d47-479a-a655-15ea8a908263.png)
 
-To access the Ignite Timer in production just <a href="ignite-timer-tawny.vercel.app">click here<a>.
+To access the Ignite Timer in production just <a href="https://ignite-timer-countdown.vercel.app/">click here<a>.
 
 ## 🚀 Features
 <ul>
