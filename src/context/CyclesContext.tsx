@@ -37,6 +37,8 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
     if (storedStateAsJSON) {
       return JSON.parse(storedStateAsJSON);
     }
+
+    return initialStateOfTheCycle;
   }));
 
   const { cycles, activeCycleId } = cyclesState;
